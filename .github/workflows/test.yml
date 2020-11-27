@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: "php:${{ matrix.php }}"
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
@@ -49,9 +49,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-
-      - name: Select PHP version
-        run: sudo update-alternatives --set php $(which php${{ matrix.php }})
 
       - name: Create MySQL Database
         run: |
