@@ -5,12 +5,14 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
         service: ['mysql:5.7', mariadb]
         prefix: ['', flarum_]
+        experimental: [false]
 
         include:
           - service: 'mysql:5.7'
@@ -19,6 +21,9 @@ jobs:
             db: MariaDB
           - prefix: flarum_
             prefixStr: (prefix)
+          - php: 8.0
+            service: 'mysql:5.7'
+            experimental: true
 
         exclude:
           - php: 7.2
