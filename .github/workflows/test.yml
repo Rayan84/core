@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: "php:${{ matrix.php }}"
+    runs-on: ${{ join('php:', matrix.php) }}
     continue-on-error: ${{ matrix.experimental }}
 
     strategy:
